@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Connexion</title>
+    <style>
+        {% load static %}
+        body {
+            background: url("{% static 'css/image/2.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 50px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+        }
+
+        .btn-primary {
+            background: #007bff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+
+        .alert {
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .welcome-text {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-container p {
+            font-size: 14px;
+            color: #333;
+            text-align: center;
+        }
+
+        .form-container a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .form-container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <div class="welcome-text">
+            Bienvenue dans notre entreprise !
+        </div>
+
+        <h2>Connexion</h2>
+
+        {% if error %}
+            <p style="color: red; text-align: center;">{{ error }}</p>
+        {% endif %}
+        
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
+        </form>
+
+        <p><a href="#">Mot de passe oublié ?</a></p>
+
+        <!-- Ajout d'un lien vers le tableau de bord après connexion réussie -->
+        {% if user.is_authenticated %}
+            <p class="mt-3" style="text-align: center;">
+                Bienvenue, {{ user.username }}! <a href="{% url 'home1' %}" class="btn btn-success">Accéder au Tableau de Bord</a>
+            </p>
+        {% endif %}
+    </div>
+
+</body>
+</html>

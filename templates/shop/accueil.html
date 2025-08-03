@@ -1,0 +1,159 @@
+{% extends "shop/base.html" %} 
+{% block content %}
+
+<center><h2><b> Tableau de bord analytique</b></h2></center>
+<style>
+    .small-box-custom {
+        position: relative;
+        overflow: hidden;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        color: #fff;
+        background: linear-gradient(135deg, #00c6ff, #0072ff);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .small-box-custom:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .small-box-custom .icon-bg {
+        position: absolute;
+        right: -10px;
+        bottom: -10px;
+        font-size: 5rem;
+        opacity: 0.15;
+    }
+
+    .small-box-custom .inner {
+        padding: 20px;
+    }
+
+    .small-box-custom h3, .small-box-custom h4 {
+        font-weight: 700;
+    }
+
+    .dashboard-container {
+        margin-top: 30px;
+        text-align: center;
+    }
+</style>
+
+<div class="container-fluid dashboard-container">
+    <div class="row justify-content-center">
+        <div class="col-md-3 mb-4">
+            <div class="small-box-custom">
+                <div class="inner">
+                    <h3>Produits</h3>
+                    <p>{{ total_products }}</p>
+                </div>
+                <div class="icon-bg">
+                    <i class="fas fa-box"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="small-box-custom" style="background: linear-gradient(135deg, #f7971e, #ffd200);">
+                <div class="inner">
+                    <h3>Commandes</h3>
+                    <p>{{ total_orders }}</p>
+                </div>
+                <div class="icon-bg">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="small-box-custom" style="background: linear-gradient(135deg, #00c9a7, #92fe9d);">
+                <div class="inner">
+                    <h3>Clients</h3>
+                    <p>{{ total_clients }}</p>
+                </div>
+                <div class="icon-bg">
+                    <i class="fas fa-users"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="small-box-custom" style="background: linear-gradient(135deg, #ed6ea0, #ec8c69);">
+                <div class="inner">
+                    <h3>Paiements</h3>
+                    <p>{{ total_payments }}</p>
+                </div>
+                <div class="icon-bg">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <h3>Nombre de Produits par Catégorie</h3>
+        <div>
+            {{ fig_pie | safe }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h3>Commandes par Statut</h3>
+        <div>
+            {{ fig_bar_orders | safe }}
+        </div>
+    </div>
+</div>
+
+{% if fig_cmd_by_date %}
+<div class="row mt-4">
+    <div class="col-md-12">
+        <h3>Évolution des commandes</h3>
+        <div>
+            {{ fig_cmd_by_date | safe }}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if fig_paiement_mois %}
+<div class="row mt-4">
+    <div class="col-md-12">
+        <h3>Revenus mensuels</h3>
+        <div>
+            {{ fig_paiement_mois | safe }}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="col-md-6">
+        <h3>Paiements par Mode</h3>
+        <div>
+            {{ fig_pie_payments | safe }}
+        </div>
+    </div>
+    <!-- Nouvelle section pour l'histogramme des produits les plus commandés par catégorie -->
+    <div class="col-md-6">
+        <h3>Produits les Plus Commandés par Catégorie</h3>
+        <div>
+            {{ fig_bar_top_products | safe }}  <!-- C'est ici que l'histogramme sera affiché -->
+        </div>
+    </div>
+</div>
+
+{% if fig_sales_by_date %}
+<div class="row">
+    <div class="col-md-12">
+        <h3>Ventes par mois</h3>
+        <div>
+            {{ fig_sales_by_date | safe }} <!-- Affiche le graphique des ventes par date -->
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "shop/base.html" %} 
+{% block content %}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Paiement sécurisé</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .payment-box {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        button {
+            padding: 12px 25px;
+            background-color: #6772e5;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #5469d4;
+        }
+
+        #error-message {
+            margin-top: 15px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-box">
+        <h2>Paiement sécurisé</h2>
+        <p>Montant : <strong>1000 FCFA</strong></p>
+        <button id="pay">Payer maintenant</button>
+        <div id="error-message"></div>
+    </div>
+
+    <script>
+        const stripe = Stripe("{{ stripe_public_key }}");
+
+        document.getElementById("pay").addEventListener("click", function () {
+            fetch("/create-checkout-session/")
+                .then(response => response.json())
+                .then(session => {
+                    return stripe.redirectToCheckout({ sessionId: session.id });
+                })
+                .catch(error => {
+                    document.getElementById("error-message").innerText = "Erreur lors de la redirection vers Stripe.";
+                    console.error("Erreur :", error);
+                });
+        });
+    </script>
+</body>
+</html>
+
+{% endblock %}

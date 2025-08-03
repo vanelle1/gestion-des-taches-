@@ -1,0 +1,73 @@
+{% extends "shop/base.html" %} 
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirmer la Suppression</title>
+</head>
+<style>
+    body {
+        background-color:rgb(148, 229, 247);
+        font-family: Arial, sans-serif;
+    }
+    
+    h1 {
+        color: #333;
+        text-align: center;
+    }
+
+</style> 
+<style>
+    body {
+        background-color:rgb(199, 249, 192);
+        font-family: Arial, sans-serif;
+    }
+    
+    h1 {
+        color: #333;
+        text-align: center;
+    }
+    /* Header */
+    .navbar {
+        background-color:rgb(31, 226, 239); /* Bleu foncé */
+    }
+    .navbar a {
+        background-color:rgb(31, 226, 239); /* Bleu foncé */
+    }
+    
+    /* Footer */
+    .footer {
+        background-color: #34495e; /* Bleu foncé légèrement différent */
+        color: white;
+        padding: 20px 0;
+    }
+    .footer a {
+        color: #f1c40f; /* Jaune */
+        text-decoration: none;
+    }
+    .footer a:hover {
+        color: #e67e22; /* Orange */
+    }
+    form {
+        width: 400px; /* Définir la largeur du formulaire */
+        height: 550px; /* Définir la hauteur du formulaire */
+        margin: 0 auto; /* Centrer le formulaire horizontalement */
+        padding: 20px; /* Ajouter un peu de padding à l'intérieur du formulaire */
+        border: 1px solid #ccc; /* Ajouter une bordure légère */
+        border-radius: 10px; /* Arrondir les coins du formulaire */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ajouter une ombre légère */
+        background-color:rgb(252, 221, 221); /* Définir une couleur de fond */
+      }
+    </style>
+<body>
+    <h1>Confirmer la Suppression</h1>
+    <p>Êtes-vous sûr de vouloir supprimer "{{ Product.name }}" ?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Oui, supprimer</button>
+        <a href="{% url 'product_list' %}">Annuler</a>
+        
+    </form>
+</body>
+</html>
+{% endblock %}

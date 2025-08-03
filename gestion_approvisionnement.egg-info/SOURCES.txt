@@ -1,0 +1,13 @@
+setup.py
+gestion_approvisionnement.egg-info/PKG-INFO
+gestion_approvisionnement.egg-info/SOURCES.txt
+gestion_approvisionnement.egg-info/dependency_links.txt
+gestion_approvisionnement.egg-info/requires.txt
+gestion_approvisionnement.egg-info/top_level.txt
+migrations/0001_initial.py
+migrations/0002_facture.py
+migrations/0003_fournisseur_categorie_produit_fournisseur_date_and_more.py
+migrations/0004_retourproduit.py
+migrations/0005_promotion.py
+migrations/0006_alter_paiement_mode_paiement.py
+migrations/__init__.py

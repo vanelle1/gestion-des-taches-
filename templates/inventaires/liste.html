@@ -1,0 +1,181 @@
+{% extends "shop/base.html" %}
+{% block content %}
+
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 98%;
+    margin: 30px auto;
+    padding: 20px 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+
+  h2 {
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+
+  .btn-print {
+    display: inline-block;
+    background-color: #3498db;
+    color: #fff;
+    font-weight: 600;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin-bottom: 20px;
+  }
+
+  .btn-print:hover {
+    background-color: #2980b9;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 0.95rem;
+  }
+
+  th {
+    background-color: #f0f0f0;
+    padding: 12px;
+    text-align: left;
+    color: #333;
+  }
+
+  td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  .total {
+    font-weight: bold;
+    background-color: #ecf0f1;
+    text-align: right;
+  }
+
+  .rapport-title {
+    margin-top: 50px;
+    border-top: 1px dashed #aaa;
+    padding-top: 30px;
+  }
+
+  @media print {
+    .btn-print {
+      display: none;
+    }
+
+    body {
+      background: none;
+    }
+
+    .container {
+      box-shadow: none;
+      border: none;
+    }
+
+    table {
+      font-size: 11pt;
+    }
+  }
+</style>
+
+<div class="container">
+
+  <button class="btn-print" onclick="window.print()">🖨️ Imprimer cette page</button>
+
+  <h2>📦 Rapport d'inventaire – {{ today|date:"d/m/Y" }}</h2>
+
+  {% if produits %}
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nom du produit</th>
+        <th>Quantité</th>
+        <th>Seuil d'alerte</th>
+        <th>Fournisseur</th>
+        <th>Prix unitaire (FCFA)</th>
+        <th>Valeur totale (FCFA)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in produits %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ p.nom }}</td>
+        <td>{{ p.stock }}</td>
+        <td>{{ p.seuil_alerte }}</td>
+        <td>{{ p.fournisseur }}</td>
+        <td>{{ p.prix|floatformat:2 }}</td>
+        <td>{{ p.valeur|floatformat:2 }}</td>
+      </tr>
+      {% endfor %}
+      <tr class="total">
+        <td colspan="6">💰 Valeur totale de l'inventaire :</td>
+        <td>{{ valeur_totale_inventaire|floatformat:2 }} FCFA</td>
+      </tr>
+    </tbody>
+  </table>
+  {% else %}
+    <p>Aucun produit enregistré dans l’inventaire.</p>
+  {% endif %}
+
+  <div class="rapport-title">
+    <h2>📈 Rapport des ventes de la semaine</h2>
+
+    {% if rapport_ventes %}
+    <table>
+      <thead>
+        <tr>
+          <th>Produit</th>
+          <th>Quantité vendue</th>
+          <th>Prix unitaire (FCFA)</th>
+          <th>Chiffre d'affaires (FCFA)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in rapport_ventes %}
+        <tr>
+          <td>{{ item.nom }}</td>
+          <td>{{ item.quantite_totale }}</td>
+          <td>{{ item.prix_unitaire|floatformat:2 }}</td>
+          <td>{{ item.chiffre_affaires|floatformat:2 }}</td>
+        </tr>
+        {% endfor %}
+        <tr class="total">
+          <td colspan="3">💼 Total :</td>
+          <td>{{ chiffre_affaires_total|floatformat:2 }} FCFA</td>
+        </tr>
+      </tbody>
+    </table>
+    {% else %}
+      <p>Aucune vente enregistrée cette semaine.</p>
+    {% endif %}
+  </div>
+
+</div>
+
+{% endblock %}

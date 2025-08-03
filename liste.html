@@ -1,0 +1,12 @@
+
+{% extends "shop/base.html" %} 
+{% block content %}
+
+
+<h2>Inventaires générés</h2>
+<ul>
+  {% for f in fichiers %}
+    <li><a href="{{ MEDIA_URL }}inventaires/{{ f }}" target="_blank">{{ f }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}

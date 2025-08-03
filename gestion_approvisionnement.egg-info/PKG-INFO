@@ -1,0 +1,25 @@
+Metadata-Version: 2.4
+Name: gestion-approvisionnement
+Version: 1.0.0
+Summary: Application Django de gestion des stocks et approvisionnements
+Home-page: https://github.com/vanelle1/gestion
+Author: Tagang Vanelle
+Author-email: tagang@example.com
+License: MIT
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Framework :: Django
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Requires-Dist: django>=3.2
+Requires-Dist: plotly
+Requires-Dist: pandas
+Requires-Dist: requests
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: home-page
+Dynamic: license
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary

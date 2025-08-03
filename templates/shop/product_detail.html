@@ -1,0 +1,37 @@
+{% extends "shop/base.html" %} 
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Produit</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    
+</head>
+<body>
+    <center>
+    <div class="container">
+        <h2>Détails du Produit</h2>
+
+        <div class="product-info">
+            <h3><strong>ID:</strong> {{ product.id }}</h3>
+            <p><strong>Name:</strong> {{ product.name }}</p>
+            <p><strong>Prix :</strong> {{ product.price }} FCFA</p>
+            <p><strong>Description :</strong> {{ product.description }}</p> <!-- Si tu as un champ description dans ton modèle -->
+            <p><strong>Stock :</strong> {{ product.stock }}</p> <!-- Si tu as un champ catégorie -->
+        </div>
+
+        <a href="{% url 'product_list' %}" class="back-btn">Retour à la liste</a>
+        <button class="btn btn-secondary" onclick="window.print();">
+            <i class="fas fa-print"></i> Imprimer
+        </button>
+    </div>
+</center>
+</body>
+</html>
+{% endblock %}

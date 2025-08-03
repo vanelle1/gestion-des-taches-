@@ -1,0 +1,39 @@
+{% extends "shop/base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Suivi de Livraison</title>
+    <style>
+        .carte-statique {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border: 3px solid #007BFF;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="container mt-5">
+    <h2 class="mb-4">Suivi de livraison pour <strong>{{ livraison.destinataire }}</strong></h2>
+
+    <!-- Carte statique de Google Maps -->
+    <img
+    class="carte-statique"
+    src="https://maps.googleapis.com/maps/api/staticmap?center=4.061536,9.786072&zoom=15&size=600x400&markers=color:red%7Clabel:L%7C4.061536,9.786072&key=VOTRE_CLE_API"
+    alt="Carte statique de livraison">
+
+
+    <!-- Boutons -->
+    <div class="mt-4">
+        <a href="https://www.google.com/maps?q={{ latitude }},{{ longitude }}" target="_blank" class="btn btn-primary">
+            Voir sur Google Maps
+        </a>
+        <a href="{% url 'liste_livraisons' %}" class="btn btn-secondary">
+            Retour
+        </a>
+    </div>
+</body>
+</html>
+{% endblock %}
