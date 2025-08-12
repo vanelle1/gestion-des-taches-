@@ -1,39 +1,68 @@
 {% extends "shop/base.html" %}
 {% block content %}
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Suivi de Livraison</title>
+<html>
+  <head>
+    <title>Suivi GPS de la Livraison</title>
+    <meta charset="utf-8" />
     <style>
-        .carte-statique {
-            width: 100%;
-            max-width: 600px;
-            height: auto;
-            border: 3px solid #007BFF;
-            border-radius: 10px;
-        }
+      #map {
+        height: 100vh;
+        width: 100%;
+      }
     </style>
-</head>
-<body class="container mt-5">
-    <h2 class="mb-4">Suivi de livraison pour <strong>{{ livraison.destinataire }}</strong></h2>
+  </head>
+  <body>
+    <h2>Carte de livraison en temps réel</h2>
+    <div id="map"></div>
 
-    <!-- Carte statique de Google Maps -->
-    <img
-    class="carte-statique"
-    src="https://maps.googleapis.com/maps/api/staticmap?center=4.061536,9.786072&zoom=15&size=600x400&markers=color:red%7Clabel:L%7C4.061536,9.786072&key=VOTRE_CLE_API"
-    alt="Carte statique de livraison">
+    <script>
+      let map;
+      let marker;
 
+      function initMap() {
+        const depart = { lat: 4.0511, lng: 9.7679 }; // Exemple: Douala
 
-    <!-- Boutons -->
-    <div class="mt-4">
-        <a href="https://www.google.com/maps?q={{ latitude }},{{ longitude }}" target="_blank" class="btn btn-primary">
-            Voir sur Google Maps
-        </a>
-        <a href="{% url 'liste_livraisons' %}" class="btn btn-secondary">
-            Retour
-        </a>
-    </div>
-</body>
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: depart,
+          zoom: 13,
+        });
+
+        marker = new google.maps.Marker({
+          position: depart,
+          map: map,
+          title: "Livreur",
+        });
+
+        // Exemple de simulation du mouvement
+        simulateMovement();
+      }
+
+      function simulateMovement() {
+        let i = 0;
+        const path = [
+          { lat: 4.0511, lng: 9.7679 },
+          { lat: 4.0611, lng: 9.7779 },
+          { lat: 4.0711, lng: 9.7879 },
+          { lat: 4.0811, lng: 9.7979 },
+        ];
+
+        setInterval(() => {
+          if (i < path.length) {
+            marker.setPosition(path[i]);
+            map.panTo(path[i]);
+            i++;
+          }
+        }, 3000);
+      }
+    </script>
+
+    <!-- Insertion de ta clé API ici -->
+    <script async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDho24jAf0scpO99_jb0v5GBKZfqijXI6Q&callback=initMap">
+    </script>
+  </body>
 </html>
+
 {% endblock %}

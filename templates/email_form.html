@@ -1,0 +1,41 @@
+{% extends 'shop/base.html' %}
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h4><i class="fas fa-envelope"></i> Envoyer un Email</h4>
+    </div>
+    <div class="card-body">
+      {% if success %}
+        <div class="alert alert-success">
+          <i class="fas fa-check-circle"></i> Email envoyé avec succès !
+        </div>
+      {% endif %}
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="id_destinataire" class="form-label">
+            <i class="fas fa-user"></i> Destinataire
+          </label>
+          {{ form.destinataire }}
+        </div>
+        <div class="mb-3">
+          <label for="id_sujet" class="form-label">
+            <i class="fas fa-heading"></i> Sujet
+          </label>
+          {{ form.sujet }}
+        </div>
+        <div class="mb-3">
+          <label for="id_message" class="form-label">
+            <i class="fas fa-comment-dots"></i> Message
+          </label>
+          {{ form.message }}
+        </div>
+        <button type="submit" class="btn btn-success">
+          <i class="fas fa-paper-plane"></i> Envoyer
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
